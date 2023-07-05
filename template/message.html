@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static\css\bootstrap.css">
+    <script src="/static\js\bootstrap.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#receiver").change(function(){
+                var rec=$("#receiver").val()
+
+                $.ajax({
+                    url:"{% url 'checkreceivername' %}",
+                    data:{'rcvr':rec},
+                    success:function(data){
+                        if(data.valid=="not exist"){
+                            alert("user does not exist")
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <script type="text/javascript">
+        function validation(){
+
+        var re=document.getElementById("receiver");
+        var su=document.getElementById("subject");
+        var ms=document.getElementById("message");
+
+        if(re.value.length==0){
+            alert("Enter receiver name")
+            return false;
+        }
+        else if(su.value.length==0){
+            alert("Enter subject")
+            return false;
+        }
+        else if(ms.value.length==0){
+            alert("Enter message")
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    </script>
+   
+    <form method="POST" action="{% url 'sendmessageaction' %}">{% csrf_token %}
+    
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Spam Mail</a>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="container w-50">
+        <table>
+        <tr>
+            <td>Receivername</td>
+            <td><input type="text" name="receivername" id="receiver" class="form-control mt-4"></td>
+        </tr>
+
+        <tr>
+            <td>Subject</td>
+            <td><input type="text" name="subject" id="subject" class="form-control mt-2"></td>
+        </tr>
+
+        <tr>
+            <td>Message</td>
+            <td><input type="text" name="message" id="message" class="form-control mt-2"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="send" class="form-control btn btn-success" onclick="return validation()"></td>
+        </tr>
+    
+    </table>
+</div>
+</form>
+</body>
+</html>
+<div class="fixed-bottom">
+    <h2 class="bg-success text-center">copyright@spammail.com</h2>
+</div>

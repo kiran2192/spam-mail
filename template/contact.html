@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static\css\bootstrap.css">
+    <script src="/static\js\bootstrap.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#cntct").change(function(){
+                var cn=$("#cntct").val()
+
+                $.ajax({
+                    url:"{% url 'checkcntct' %}",
+                    data:{'cnt':cn},
+                    success:function(data){
+                    if(data.valid== "not exist"){
+                        alert("user does not exist")
+                    }
+                    }
+
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <script type="text/javascript">
+        function validation(){
+            var nm=document.getElementById("name");
+            var rm=document.getElementById("remarks")
+
+            if(nm.value.length==0){
+                alert("Enter name")
+                return false;
+            }
+            else if(rm.value.length==0){
+                alert("Enter remarks")
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }
+        </script>
+         <form method="POST"  action="{% url 'contactaction' %}">{% csrf_token %}
+    
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Spam Mail</a>
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+            </div>
+        </div>
+        <div class="container w-50">
+   
+    <table>
+        <tr>
+            <td>Contactid</td>
+            <td><input type="text" name="contact" id="cntct" class="form-control mt-4"></td>
+        </tr>
+
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="name" id="name" class="form-control mt-2"></td>
+        </tr>
+
+        <tr>
+            <td>Remarks</td>
+            <td><input type="text" name="remarks" id="remarks" class="form-control mt-2"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="submit" class="btn btn-success" onclick="return validation()"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<div class="fixed-bottom">
+    <h2 class="bg-success text-center">@spammail.com</h2>
+</div>

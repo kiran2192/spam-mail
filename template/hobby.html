@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static\css\bootstrap.css">
+    <script src="/static\js\bootstrap.js"></script>
+</head>
+<body>
+    <form method="POST" action="{% url 'hobbyaction' %}">{% csrf_token %}
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Spam Mail</a>
+                <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                </div>
+        </div>
+        
+        <div class="container w-50">
+    <table>
+        <tr>
+            <td>Hobby</td>
+            <td><input type="text" name="hobby" class="form-control mt-4"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="submit" class="btn btn-success mt-2"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<div class="fixed-bottom">
+    <h2 class="bg-success text-center">copyright@spammail.com</h2>
+</div>
